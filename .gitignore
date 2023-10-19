@@ -1,0 +1,7 @@
+man/
+solar/
+inst/web/
+inst/staticdocs/
+
+solarius\.Rcheck
+solarius_*\.gz

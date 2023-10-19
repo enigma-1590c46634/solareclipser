@@ -1,0 +1,15 @@
+\.git
+
+notes
+projects
+reports
+learn
+misc
+
+vignettes
+
+inst/scripts
+inst/staticdocs
+inst/web
+
+solarius*

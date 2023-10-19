@@ -1,0 +1,174 @@
+---
+title: "Comparison between SOLAR and lme4 on GAIT1 data set"
+author: "Andrey Ziyatdinov"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: united
+    toc: true
+    keep_md: true
+---
+
+
+## Include
+
+```{r inc}
+library(gait) # to get GAIT data sets
+library(solaris) # lme4-based model
+library(solarius) # SOLAR-based model
+```
+
+```{r}
+library(microbenchmark)
+library(plyr)
+library(ggplot2)
+```
+
+```{r par}
+lmerControl <- lmerControl(check.nobs.vs.nlev = "ignore",
+  check.nobs.vs.nRE = "ignore", check.nobs.vs.rankZ = "ignore")
+```
+
+## Data
+
+```{r dat, cache = TRUE}
+pdat  <- gait1.phen()
+pdat <- mutate(pdat, 
+  tr_FXI = FXI_T * 5.1)
+```
+
+```{r kin, cache = TRUE}
+k2 <- solarKinship2(pdat)
+```
+
+## Two models
+
+```{r m1, cache = TRUE}
+system.time({
+  m1 <- solaris(tr_FXI ~ AGE + (1|HHID) + (1|ID), pdat, 
+    relmat = list(ID = k2), control = lmerControl)
+})
+```
+
+```{r m2, cache = TRUE}    
+system.time({
+  m2 <- solarPolygenic(tr_FXI ~ AGE, pdat)
+})
+```
+
+### Compare varianse components
+
+```{r m1_sum}
+summary(m1)
+```
+
+```{r m2_print}
+m2
+```
+
+Proportion of variance for model `m1`:
+
+```{r sig2_m1}
+sig2 <- c(0.3843, 0.1754, 0.4763)
+names(sig2) <- c("ID", "HHID", "Residual")
+round(sig2 / sum(sig2), 3)
+```
+
+Proportion of variance for model `m2`:
+
+```{r sig2_m2}
+sig2 <- m2$vcf$Var
+names(sig2) <- m2$vcf$varcomp
+round(sig2 / sum(sig2), 3)
+```
+
+### REML = FALSE
+
+```{r m3}
+m3 <- solaris(tr_FXI ~ AGE + (1|HHID) + (1|ID), pdat, 
+  relmat = list(ID = k2), control = lmerControl, REML = FALSE)
+summary(m3)  
+```
+    
+Proportion of variance for model `m3`:
+
+```{r sig2_m3}
+sig2 <- c(0.3793, 0.1725, 0.4763)
+names(sig2) <- c("ID", "HHID", "Residual")
+round(sig2 / sum(sig2), 3)
+```
+
+Proportion of variance for model `m2`:
+
+```{r sig2_m2_2}
+sig2 <- m2$vcf$Var
+names(sig2) <- m2$vcf$varcomp
+round(sig2 / sum(sig2), 3)
+```
+
+## Benchmarking
+
+```{r bench, cache = TRUE}
+tab <- microbenchmark(
+  SOLAR = {
+    m1 <- solaris(tr_FXI ~ AGE + (1|HHID) + (1|ID), pdat, 
+      relmat = list(ID = k2), control = lmerControl)
+  },
+  lme4 = {
+    m2 <- solarPolygenic(tr_FXI ~ AGE, pdat)
+  }, times = 5)
+```
+
+```{r tab, echo = TRUE}
+tab
+```
+
+```{r plot_tab}
+ggplot(tab, aes(expr, time)) + geom_boxplot() + scale_y_log10()
+```
+
+The ratio is:
+
+```{r ratio}
+time.mean <- ddply(tab, "expr", summarize, time = mean(time))[, "time"]
+time.mean / time.mean[1]
+```
+
+## Ratio vs. the number of samples
+
+```{r local, echo = FALSE}
+run <- function(len, times)
+{
+  dat <- pdat
+  
+  ind <- which(!is.na(dat$tr_FXI))
+  stopifnot(len <= length(ind))
+  
+  ind.keep <- 1:nrow(dat) %in% ind[1:len]
+  dat$tr_FXI[!ind.keep] <- NA
+  
+  tab <- microbenchmark(
+    SOLAR = {
+      m1 <- solaris(tr_FXI ~ AGE + (1|HHID) + (1|ID), dat, 
+        relmat = list(ID = k2), control = lmerControl)
+    },
+    lme4 = {
+      m2 <- solarPolygenic(tr_FXI ~ AGE, dat)
+    }, times = times)
+  
+  time.mean <- ddply(tab, "expr", summarize, time = mean(time))[, "time"]
+  
+  time.mean[2] / time.mean[1]
+}
+```
+
+```{r run, echo = FALSE, cache = TRUE}
+sample.size <- c(110, 220, 330)
+time.ratio <- laply(sample.size, function(x) run(x, 5))
+```
+
+```{r plot_run}
+qplot(sample.size, time.ratio) + geom_line() +
+  ggtitle("Time ratio vs. GAIT1 sample size")
+```
+

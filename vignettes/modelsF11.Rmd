@@ -1,0 +1,138 @@
+---
+title: "SOLAR models for quantitative genetic analysis"
+author: "Andrey Ziyatdinov, Helena Brunel"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: united
+    toc: true
+  pdf_document:
+    toc: true
+bibliography: ref.bib
+---
+
+```{r}
+#opts_chunk$set(eval = TRUE)
+
+```
+
+## About
+
+This pages shows particular examples to illustrate the 'solarius' package's behaviour with large datasets. In particular, these examples were generated wuth the GAIT (Genetic Analysis of Idiopathic Thrombophilia) dataset. The GAIT Project included 397 individuals from 21 extended Spanish families (mean pedigree size = 19) [1]. A genome-wide set of 307,984 SNPs was typed in all of the participants using the Infinium 317 k Beadchip on the Illumina platform (San Diego, CA, USA).
+
+ 
+We selected 3 specific examples where we could compare the results obtained with the 'solarius' package with those previously obtained and published. In particular we applied a GWAS and a Linkage model to the BMI and the Factor XI phenotypes and the Trhombosis affection. For each of these traits, we show how the main functions of the a'solarius' package were applied and we confirm that they are in concordance with the previsouly published ones.
+
+
+### BMI
+
+```{r init, echo=TRUE}
+library(solarius)
+cores <- 32
+```
+
+```{r load, echo=FALSE}
+library(gait)
+
+
+dat  <- gait1.phen()
+mibddir <- gait1.mibddir()
+gait1.snpfiles <- gait1.snpfiles()
+pdat <- mutate(dat, tr_FXIc=dat$FXI_T*5.1,   ln_bmi = log(bmi),  tr_bmi = 6.1 * ln_bmi)
+```
+
+```{r h2r1, echo=TRUE, cache = TRUE}
+# traits previously transformed, only significant covariates
+M1 <- solarPolygenic(tr_bmi ~ AGE, pdat, covtest = TRUE)
+M1
+```
+
+```{r assoc1, echo=T, cache = TRUE}
+A1 <- solarAssoc(tr_bmi ~ AGE, pdat, genocov.files = gait1.snpfiles$genocov.files, snplists.files = gait1.snpfiles$snplists.files, snpmap.files = gait1.snpfiles$snpmap.files, cores = cores)
+summary(A1)
+```
+
+```{r A1.manh, cache=T}
+plot(A1)
+```
+
+```{r A1.qq, cache=T}
+plot(A1, "qq")
+```
+
+```{r linkage1, echo=T, cache=T}
+L1 <- solarMultipoint(formula = tr_bmi ~ AGE, data = dat, mibddir = mibddir, 
+    chr = 1:22, interval = 5, cores = 22, verbose = 1)
+summary(L1)
+```
+```{r L1, cache=T}
+plot(L1)
+```
+
+## FXI
+
+```{r h2r2, echo=T, cache = TRUE}
+M2 <- solarPolygenic(tr_FXI ~ AGE, pdat, covtest=T)
+```
+```{r assoc2, echo=T, cache = TRUE}
+A2 <- solarAssoc(tr_FXI ~ AGE, pdat, genocov.files = gait1.snpfiles$genocov.files, snplists.files = gait1.snpfiles$snplists.files, snpmap.files = gait1.snpfiles$snpmap.files, cores = cores)
+summary(A2)
+```
+```{r A2.manh, cache=T}
+plot(A2)
+```
+
+```{r A2.qq, cache=T}
+plot(A2, "qq")
+```
+We observe that our significant SNPs correspond to those reported in [2]. They are three loci: rs710446 and rs4253399 located in the structural F11 gene,  and and rs4241824, located in the kininogen 1 (KNG1) gene. Both rs710446 and rs4241824 were reported in our previous GWAS published in [2].
+
+
+```{r linkage2, echo=T, cache=T}
+L2 <- solarMultipoint(formula = tr_FXI ~ AGE, data = dat, mibdir = mibdir, chr = 1:22, interval = 5, cores = 22, verbose = 1)
+summary(L2)
+```
+```{r L2, cache=T}
+plot(L2)
+```
+
+
+
+
+
+### Throm
+
+
+
+```{r h2r3, echo=T, cache=T}
+M3 <- solarPolygenic(aff ~ AGE, pdat, covtest = TRUE)
+M3
+```
+
+``` {r assoc3, echo=T, cache = TRUE}
+A3 <- solarAssoc(aff ~ AGE, pdat, genocov.files = gait1.snpfiles$genocov.files, snplists.files = gait1.snpfiles$snplists.files, snpmap.files = gait1.snpfiles$snpmap.files, cores = cores)
+```
+
+```{r A3.manh, cache=T}
+plot(A3)
+```
+
+```{r A3.qq, cache=T}
+plot(A3, "qq")
+```
+```{r linkage3, echo=T, cache=T}
+L3<- solarMultipoint(formula = aff ~ AGE, data = dat, mibdir = mibdir, chr = 1:22, interval = 5, cores = 22, verbose = 1)
+summary(L3)
+```
+
+```{r L3, cache=T}
+plot(L3)
+```
+
+## Refences
+
+[1] JC Souto, L Almasy, M Borrell , F Blanco-Vaca, J Mateo, et al. Genetic susceptibility to thrombosis and its relationship to physiological risk factors: the GAIT study Genetic Analysis of Idiopathic Thrombophilia. American Journal of Human Genetics.2000; 67:1452–1459.
+[2] J.C. Souto, G.Pena, A. Ziyatdinov, A.Buil, S. López, J. Fontcuberta, J.M. Soria. A genomewide study of body mass index and its genetic correlation with thromboembolic risk. Thrombosis & Haemostasis. 2014;112(5):1036-43.
+[3] Maria Sabater-Lleal, Angel Martinez-Perez, Alfonso Buil, Lasse Folkersen, Juan Carlos Souto, Maria Bruzelius, Montserrat Borrell, Jacob Odeberg, Angela Silveira, Per Eriksson, Laura Almasy, Anders Hamsten, José Manuel Soria. A genome-wide association study identifies KNG1 as a genetic determinant of plasma factor XI Level and activated partial thromboplastin time.Arteriosclerosis, Thrombosis, and Vascular Biology. 2012; 32 (8): 2008-16.
+
+

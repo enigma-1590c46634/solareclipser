@@ -1,0 +1,212 @@
+---
+title: "Minimal examples for `solarius` R package"
+author: "Andrey Ziyatdinov"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: united
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+```{r chunk_opt, echo = FALSE}
+#opts_chunk$set(eval = TRUE)
+#opts_chunk$set(fig.path = "figures-minimal/")
+```
+
+# `dat30` data set 
+
+```{r, eval = FALSE}
+help(dat30, package = "solarius")
+```
+
+# All code in one block
+
+```{r min_example, cache = TRUE}
+# load library
+library(solarius)
+
+# load data set
+data(dat30)
+
+# univariate polygenic model
+mod1 <- solarPolygenic(trait1 ~ 1, dat30)
+
+# bivariate polygenic model
+mod2 <- solarPolygenic(trait1 + trait2 ~ 1, dat30,
+  polygenic.options = '-testrhoe -testrhog')
+
+# specify directory with IBD matrices and run linkage model
+mibddir <- system.file('extdata', 'solarOutput',
+  'solarMibdsCsv', package = 'solarius') 
+link <- solarMultipoint(trait1 ~ 1, dat30,
+  mibddir = mibddir, chr = 5)
+
+# run association model in parallel
+assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
+  snpcovdata = genocovdat30, snpmap = mapdat30)
+```  
+
+# Results
+
+Estimation of the heritability of `trait1` (`mod1` model) is `r sprintf("%.2f", with(mod1$vcf, Var[varcomp == "h2r"]))`
+$\pm$ `r sprintf("%.2f", with(mod1$vcf, SE[varcomp == "h2r"]))`
+with p-value `r sprintf("%.2e", with(mod1$vcf, pval[varcomp == "h2r"]))`.
+
+Estimation of the genetic correlation between `trait1` and `trait2` (`mod2` model) 
+is `r sprintf("%.2f", with(mod2$vcf, Estimate[varcomp == "rhog"]))`
+$\pm$ `r sprintf("%.2f", with(mod2$vcf, SE[varcomp == "rhog"]))`
+with p-value `r sprintf("%.2e", with(mod2$lf, pval[model == "rhog0"]))`.
+
+Estimation of the environmental correlation between `trait1` and `trait2` (`mod2` model) 
+is `r sprintf("%.2f", with(mod2$vcf, Estimate[varcomp == "rhoe"]))`
+$\pm$ `r sprintf("%.2f", with(mod2$vcf, SE[varcomp == "rhoe"]))`
+with p-value `r sprintf("%.2f", with(mod2$lf, pval[model == "rhoe0"]))`.
+
+The highest LOD score in the linkage analysis of `trait1` on Chromosome 5 
+is `r sprintf("%.2f", max(link$lodf$LOD))` at `r link$lodf$pos[which.max(link$lodf$LOD)]` cM position.
+
+The only significant SNP in the association analysis of `trait1` 
+on a set of `r nrow(assoc$snpf)` (synthetic) SNPs is 
+`r as.character(assoc$snpf$SNP[which.min(assoc$snpf$pSNP)])`
+with p-value `r sprintf("%.2e", min(assoc$snpf$pSNP))`.
+
+# Polygenic model (univariate)
+
+The model with covariates can be fitted in the following way.
+
+```{r mod0, cache = TRUE}
+mod0 <- solarPolygenic(trait1 ~ age + sex, dat30, covtest = TRUE)
+```
+
+`print` method applied to `mod0` shows that none of the covariates is significant.
+
+```{r print_mod0}
+mod0
+```
+
+The test statistics and p-values for the covariates are stored in `cf` (**c**covariate **f**rame) slot.
+
+```{r mod0_cf}
+mod0$cf
+```
+
+The estimations of heritabilities in `mod0` and `mod1` models are slightly different.
+
+```{r mod1}
+mod1
+```
+
+# Polygenic model (bivariate)
+
+The `print` method applied to `mod2` shows estimation of the main parameters of the model.
+
+```{r mod2}
+mod2
+```
+
+The same values printed above are extracted and saved into `vcf` (**v**ariance **c**omponent **f**rame) slot .
+
+```{r mod2_vcf}
+mod2$vcf
+```
+
+The information about the test statistic and p-values are given in `lf` (**l**ikelihood **f**rame) slot.
+
+```{r mod2_lf}
+mod2$lf
+```
+
+# Linkage model
+
+Table of the results with LOD scores and marker information is stored in `lodf` (**LOD** scores **f**rame) slost.
+
+```{r link}
+link$lodf
+```
+
+Summary method reports the maximum LOD score.
+
+```{r sum_link}
+summary(link)
+```
+
+The plot method graphically shows the results.
+
+```{r plot_link}
+plot(link)
+```
+
+# Asssociation model
+
+`summary` method applies the Bonferroni correction with a given value of `alpha` (the default value is 0.05).
+
+```{r assoc}
+summary(assoc, alpha = 0.05)
+```
+
+Table of the results is stored in `snpf` (**SNP** **f**rame) slot.
+
+```{r assoc_snpf}
+head(assoc$snpf)
+```
+
+The default plot method is Manhattan plot.
+The black dashed line shows the Bonferroni correction level at a given value of `alpha` (the default value is 0.05).
+
+```{r plot_assoc_man}
+plotManh(assoc, alpha = 0.01)
+```
+
+This call is equavalent to `plot(assoc, alpha = 0.01)`,
+as `plot` method applied to `assoc` object calls `plotManh` function.
+
+The second plot available for `assoc` object is QQ-plot.
+The inflation parameter $\lambda$ (median method) is computed and dipicted at the bottom of the figure.
+
+```{r plot_assoc_qq}
+plotQQ(assoc)
+```
+
+This call is equavalent to `plot(assoc, "qq")`,
+as `plot` method (applied to `assoc` object) with the second argument equal to `"qq"` calls `plotQQ` function.
+
+The procedure of SNPs annotation is possible via `rsnps` R package (loaded by `annotate` function invisibly to the user).
+
+```{r annot_assoc}
+tab <- annotate(assoc)
+tab
+```
+
+Annotation of the synthetic SNPs generated for `dat30` data sets returns an empty data frame,
+since the names expected by `rsnps` R package must begin with *rs* symbols.
+
+Meantime, annotation of the genome-wide significant SNPs 
+from [GWAS of FXIc phenotype in GAIT1 data set](http://ugcd.github.io/solarius/vignettes/modelsGAIT1.html#fxi)
+(real data) is accomplished as following.
+
+```{r annot_F11_gait1, cache = TRUE}
+snps <- c("rs710446", "rs4241824", "rs4253399")
+tab <- annotate(snps)
+tab
+```
+
+In this case `annotate` function takes a vector of characters as its first argument.
+
+# R session info
+
+```{r session_info}
+sessionInfo()
+```
+
+# License
+
+This document is licensed under the Creative Commons Attribution 4.0 International Public License. 
+
+[![Creative Commons License](http://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
+
