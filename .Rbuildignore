@@ -13,3 +13,5 @@ inst/staticdocs
 inst/web
 
 solarius*
+^.*\.Rproj$
+^\.Rproj\.user$

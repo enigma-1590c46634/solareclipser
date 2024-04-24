@@ -161,17 +161,3 @@ extract_mod_pvar <- function(mod, modelname)
   sd <- as.numeric(strsplit(grep("sd", mod$solar$files$model[[modelname]], value = TRUE)[1], "sd = |Lower")[[1]][2])
   sd^2
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
