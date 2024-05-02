@@ -1,6 +1,3 @@
-
-context("plinkfiles")
-
 test_that("input `plink.raw`", {
   data(dat50)
   

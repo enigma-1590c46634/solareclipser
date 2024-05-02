@@ -1,6 +1,3 @@
-
-context("snpmap")
-
 # input data
 test_that("3 snps, 2 snps in map", {
   data(dat50)

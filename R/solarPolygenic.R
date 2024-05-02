@@ -278,3 +278,4 @@ solar_read_residuals <- function(dir, out)
   oldClass(out) <- "solarPolygenic"  
   return(out)
 }
+

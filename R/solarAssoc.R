@@ -296,10 +296,10 @@ solarAssoc <- function(formula, data, dir,
     
   # check for matrix format  
   if(!missing.snpdata) {
-    stopifnot(class(snpdata) == "matrix")
+    #stopifnot(class(snpdata) == "matrix")
   }
   if(!missing.snpcovdata) {
-    stopifnot(class(snpcovdata) == "matrix")
+    #stopifnot(class(snpcovdata) == "matrix")
   }
   
   # check `snplist` / `snpind` format
@@ -408,6 +408,7 @@ solarAssoc <- function(formula, data, dir,
   #  ret <- snpmap2solar(snpmap, dir)
   #}
   
+  # TODO: review this part
   if(out$assoc$assoc.informat == "snpdata") {
     ret <- snpdata2solar(snpdata, dir)
   } else if(out$assoc$assoc.informat == "snpcovdata") {
@@ -417,6 +418,7 @@ solarAssoc <- function(formula, data, dir,
   ### number of snps
   num.snps <- as.integer(NA)
   if(out$assoc$assoc.informat %in% c("snpdata", "snpcovdata")) {
+    print(out$assoc$genolist.file)
     snps <- readLines(file.path(dir, out$assoc$genolist.file))
     num.snps <- length(snps)
   }

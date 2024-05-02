@@ -1,6 +1,3 @@
-
-context("solarMultipoint")
-
 # basic examples
 test_that("basic example on dat30", {
   dat <- loadMulticPhen()

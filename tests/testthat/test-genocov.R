@@ -1,6 +1,3 @@
-
-context("genocov")
-
 test_that("1 `genocov.files` & subset of SNPs in 1 `snplists.files`", {
   data(dat50)
   

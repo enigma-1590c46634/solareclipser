@@ -1,6 +1,3 @@
-
-context("solarAssoc in parallel")
-
 #----------------------------
 # input data: `genocov.files` / `snpcovdata` / ...
 #----------------------------

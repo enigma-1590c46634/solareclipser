@@ -1,6 +1,3 @@
-
-context("kinship matrix")
-
 test_that("two custom kinship matrices", {
   data(dat30)
   

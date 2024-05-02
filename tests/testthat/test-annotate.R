@@ -1,6 +1,3 @@
-
-context("annotate")
-
 test_that("1 `genocov.files` & subset of SNPs in 1 `snplists.files`", {
   snps <- c("rs2731672", "rs10081087", "rs2287694", "rs7712944")
   

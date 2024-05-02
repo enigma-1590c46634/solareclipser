@@ -1,6 +1,3 @@
-
-context("household")
-
 test_that("house-hold default (NA)", {
   data(dat30)
   

@@ -1,6 +1,3 @@
-
-context("mgafiles")
-
 test_that("input data parameters 2 `genocov.files` & 2 `snplists.files`", {
   data(dat50)
   

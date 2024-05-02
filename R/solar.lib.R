@@ -190,7 +190,8 @@ df2solar <- function(df, dir, kinship, kin2.gz = "kin2.gz", sort.ped = TRUE)
 snpdata2solar <- function(mat, dir)
 {
   # parse arguments
-  stopifnot(class(mat) == "matrix")
+  # TODO: review this
+  #stopifnot(class(mat) == "matrix")
 
   stopifnot(!is.null(rownames(mat)))
   stopifnot(!is.null(colnames(mat)))
@@ -232,7 +233,8 @@ snpdata2solar <- function(mat, dir)
 snpcovdata2solar <- function(mat, dir, nGTypes = FALSE, out)
 {
   # parse arguments
-  stopifnot(class(mat) == "matrix")
+  # TODO: review this
+  #stopifnot(class(mat) == "matrix")
 
   stopifnot(!is.null(rownames(mat)))
   stopifnot(!is.null(colnames(mat)))
@@ -554,14 +556,4 @@ format_snpdata <-function(mat, snpformat)
     },
     stop(paste("error in `format_snpdata`; `snpformat`", snpformat, "is unknown")))
 }
-
-
-
-
-
-
-
-
-
-
 

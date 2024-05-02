@@ -1,6 +1,3 @@
-
-context("solarAssoc")
-
 # input data
 test_that("input data parameters `genocovdata` and `genodata`", {
   data(dat50)

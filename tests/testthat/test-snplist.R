@@ -1,6 +1,3 @@
-
-context("snplist/snpind")
-
 # input data
 test_that("input data parameters `genocovdata`", {
   data(dat50)
