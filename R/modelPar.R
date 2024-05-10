@@ -3,7 +3,7 @@
 # Main functions (out.globals)
 #------------------------------
 
-#' Get a parameter value from \code{solarius} models.
+#' Get a parameter value from \code{solareclipser} models.
 #'
 #' @name modelPar
 #' @rdname modelPar

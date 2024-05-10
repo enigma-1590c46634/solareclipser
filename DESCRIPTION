@@ -1,14 +1,13 @@
 Package: solareclipser
-Title: An R Interface to SOLAR.
+Title: An R Interface to SOLAR
 Type: Package
 Version: 0.3.3
 Date: 2024-05-02
 Authors@R: 
     person("William",
            "Burroughs",
-           "wilbura009@gmail.com",
-           role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "wilbura009@gmail.com",
+           role = c("aut", "cre"))
 Maintainer: William Burroughs <wilbura009@gmail.com>
 Description: SOLAR is the standard software program to perform linkage and
     association mappings of the quantitative trait loci (QTLs) in pedigrees of
@@ -16,13 +15,14 @@ Description: SOLAR is the standard software program to perform linkage and
     variance component methods implemented in SOLAR. It automates such routine
     operations as formatting pedigree and phenotype data. It also parses the model
     output and contains summary and plotting functions for exploration of the
-    results. In addition, solarius enables parallel computing of the linkage and
+    results. In addition, solareclipser enables parallel computing of the linkage and
     association analyses, that makes the calculation of genome-wide scans more
-    efficient. See <http://solar.txbiomedgenetics.org/> for more information about
+    efficient. See <https://solar-eclipse-genetics.org//> for more information about
     SOLAR.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
 URL: https://github.com/enigma-1590c46634/solareclipser
 LazyData: false
 OS_type: unix
@@ -31,8 +31,10 @@ Imports:
     plyr (>= 1.8.1),
     ggplot2,
     data.table,
-    kinship2
+    kinship2,
     doParallel,
+    qqman,
+    gridExtra
 Suggests:
     tools,
     scales,
@@ -40,10 +42,8 @@ Suggests:
     gdata,
     iterators,
     parallel,
-    qqman,
     rsnps,
     grid,
-    gridExtra,
     testthat (>= 3.0.0)
 Collate:
     'package.R'
@@ -68,4 +68,3 @@ Collate:
     'solarBayesAvg.R'
     'solarPar.R'
     'modelPar.R'
-RoxygenNote: 7.3.1

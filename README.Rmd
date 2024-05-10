@@ -1,15 +1,27 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # solareclipser
 
 <!-- badges: start -->
 <!-- badges: end -->
 
+
 ## Description
 
-`solareclipser` is an R package to interface SOLAR and to run its main
-models: polygenic, association and linkage.
+`solareclipser` is an R package to interface SOLAR and to run its main models: polygenic, association and linkage. 
 
 | Model                                                                                                 | SOLAR cmd                                                                                           | `solareclipser` function | Input data format                             |
 |-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|--------------------------|-----------------------------------------------|
@@ -17,10 +29,7 @@ models: polygenic, association and linkage.
 | [Linkage](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#linkage-model-in-solar)         | [multipoint](http://helix.nih.gov/Documentation/solar-6.6.2-doc/91.appendix_1_text.html#multipoint) | solarMultipoint          | MIBD: SOLAR                                   |
 | [Association](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#association-model-in-solar) | [mga](http://helix.nih.gov/Documentation/solar-6.6.2-doc/91.appendix_1_text.html#mga)               | solarAssoc               | SNP: R matrix, SOLAR, PLINK (markers/imputed) |
 
-The `solareclipser` package also enables parallel computation of
-[association](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#parallel-computation)
-/
-[linkage](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#parallel-computation-1)
+The `solareclipser` package also enables parallel computation of [association](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#parallel-computation) / [linkage](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#parallel-computation-1)
 models to make genome-wide scans more efficient.
 
 ## Installation
@@ -34,10 +43,9 @@ install_github("enigma-1590c46634/solareclipser")
 
 ## Minimal example
 
-The following code shows how the main functions (`solarPolygenic`,
-`solarMultipoint` and `solarAssoc`) of the package work.
+The following code shows how the main functions (`solarPolygenic`, `solarMultipoint` and `solarAssoc`) of the package work.
 
-``` r
+```{r example}
 # load library
 library(solareclipser)
 
@@ -60,12 +68,9 @@ link <- solarMultipoint(trait1 ~ 1, dat30,
 # run association model in parallel
 assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
   snpcovdata = genocovdat30, snpmap = mapdat30)
-#> [1] "snp.geno-list"
 ```
 
 ## SOLAR references
 
-- The new [SOLAR web page](https://solar-eclipse-genetics.org/)
-  (SOLAR-Eclipse)
-- [Appendix 1. SOLAR Command
-  Descriptions](http://helix.nih.gov/Documentation/solar-6.6.2-doc/91.appendix_1_text.html)
+* The new [SOLAR web page](https://solar-eclipse-genetics.org/) (SOLAR-Eclipse)
+* [Appendix 1. SOLAR Command Descriptions](http://helix.nih.gov/Documentation/solar-6.6.2-doc/91.appendix_1_text.html)

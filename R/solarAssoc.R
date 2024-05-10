@@ -294,13 +294,14 @@ solarAssoc <- function(formula, data, dir,
     }
   }
     
+  # TODO: review this part
   # check for matrix format  
-  if(!missing.snpdata) {
-    #stopifnot(class(snpdata) == "matrix")
-  }
-  if(!missing.snpcovdata) {
-    #stopifnot(class(snpcovdata) == "matrix")
-  }
+  #if(!missing.snpdata) {
+  #  stopifnot(class(snpdata) == "matrix")
+  #}
+  #if(!missing.snpcovdata) {
+  #  #stopifnot(class(snpcovdata) == "matrix")
+  #}
   
   # check `snplist` / `snpind` format
   stopifnot(any(missing(snplist), missing(snpind)))

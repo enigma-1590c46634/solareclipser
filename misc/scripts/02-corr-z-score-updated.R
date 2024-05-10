@@ -1,8 +1,8 @@
 ### inc
-library(solarius)
+library(solareclipser)
 
 ### we need the latest version that gives Z/pvalZ
-stopifnot(packageVersion("solarius") >= "0.3.2")
+stopifnot(packageVersion("solareclipser") >= "0.3.2")
 
 ### data
 data(dat30)

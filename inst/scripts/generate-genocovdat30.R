@@ -1,4 +1,4 @@
-library(solarius)
+library(solareclipser)
 library(plyr)
 
 # number of SNPs to be generated

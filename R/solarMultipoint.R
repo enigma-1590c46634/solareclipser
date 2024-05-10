@@ -11,7 +11,7 @@
 #' @note
 #'  The user is responsible for computation of the MIBD matrices 
 #'  required by \code{solarMultipoint} function via \code{mibddir} argument.
-#'  Estimation of the IBD matrices is out of the scope of \code{solarius} package.
+#'  Estimation of the IBD matrices is out of the scope of \code{solareclipser} package.
 #'  More information is available in \url{http://solar.txbiomedgenetics.org/doc/05.chapter.html}.
 #' 
 #'@param formula
@@ -88,7 +88,7 @@
 #'
 #' ### load marker data
 #' mibddir <- system.file('extdata', 'solarOutput',
-#'   'solarMibdsCsv', package = 'solarius') 
+#'   'solarMibdsCsv', package = 'solareclipser') 
 #' list.files(mibddir)
 #'
 #' \dontrun{

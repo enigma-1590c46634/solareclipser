@@ -1,5 +1,5 @@
 ### inc
-library(solarius)
+library(solareclipser)
 
 ### data
 data(dat30)

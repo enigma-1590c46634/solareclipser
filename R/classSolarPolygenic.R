@@ -20,7 +20,6 @@
 # Print method
 #--------------------
 
-#' @rdname solarPolygenicClass
 #' @export
 print.solarPolygenic <- function(x, ...)
 {
@@ -31,7 +30,6 @@ print.solarPolygenic <- function(x, ...)
   l_ply(x$solar$files$model$polygenic.out, function(x) cat(x, "\n"))
 }
 
-#' @rdname solarPolygenicClass
 #' @export
 summary.solarPolygenic <- function(object, ...)
 {
@@ -55,7 +53,6 @@ summary.solarPolygenic <- function(object, ...)
 # Generic method
 #--------------------
 
-#' @rdname solarPolygenicClass
 #' @export
 residuals.solarPolygenic <- function(object, trait = FALSE, ...)
 {

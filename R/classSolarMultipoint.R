@@ -26,7 +26,6 @@
 # Print method
 #--------------------
 
-#' @rdname solarMultipointClass
 #' @export
 print.solarMultipoint <- function(x, ...)
 {
@@ -45,7 +44,6 @@ print.solarMultipoint <- function(x, ...)
     format(.POSIXct(t, tz = "GMT"), "%H:%M:%S"), "\n", sep = "")
 }
 
-#' @rdname solarMultipointClass
 #' @param main
 #'    An argument for \code{plot} method.
 #' @param xlab
@@ -99,7 +97,6 @@ plot.solarMultipoint <- function(x,
   return(p)
 }
 
-#' @rdname solarMultipointClass
 #' @export
 summary.solarMultipoint <- function(object, ...)
 {
@@ -125,7 +122,6 @@ summary.solarMultipoint <- function(object, ...)
 ##' @export
 tabplot <- function(object,...) UseMethod("tabplot") 
 
-#' @rdname solarMultipointClass
 #' @method tabplot solarMultipoint
 #' @export
 tabplot.solarMultipoint <- function(object, LOD.thr = 1.5, plot.null = TRUE, ...)

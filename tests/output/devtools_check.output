@@ -1,0 +1,238 @@
+══ Documenting ═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+══ Building ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Setting env vars:
+• CFLAGS    : -Wall -pedantic
+• CXXFLAGS  : -Wall -pedantic
+• CXX11FLAGS: -Wall -pedantic
+• CXX14FLAGS: -Wall -pedantic
+• CXX17FLAGS: -Wall -pedantic
+• CXX20FLAGS: -Wall -pedantic
+── R CMD build ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     checking for file ‘/home/wb/Work/nGit/R/Projects/solareclipser/DESCRIPTION’ ...  ✔  checking for file ‘/home/wb/Work/nGit/R/Projects/solareclipser/DESCRIPTION’
+  ─  preparing ‘solareclipser’:
+  ✔  checking DESCRIPTION meta-information
+  ─  checking for LF line-endings in source and make files and shell scripts
+  ─  checking for empty or unneeded directories
+  ─  looking to see if a ‘data/datalist’ file should be added
+  ─  building ‘solareclipser_0.3.3.tar.gz’
+     
+══ Checking ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Setting env vars:
+• _R_CHECK_CRAN_INCOMING_USE_ASPELL_           : TRUE
+• _R_CHECK_CRAN_INCOMING_REMOTE_               : FALSE
+• _R_CHECK_CRAN_INCOMING_                      : FALSE
+• _R_CHECK_FORCE_SUGGESTS_                     : FALSE
+• _R_CHECK_PACKAGES_USED_IGNORE_UNUSED_IMPORTS_: FALSE
+• NOT_CRAN                                     : true
+── R CMD check ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ─  using log directory ‘/tmp/Rtmp5f5mMi/file56a828899d4e/solareclipser.Rcheck’
+─  using R version 4.1.2 (2021-11-01)
+-  ─  using platform: x86_64-pc-linux-gnu (64-bit)
+─  using session charset: UTF-8
+\|/-\|/-\|/-\|/-\|/-  ─  using options ‘--no-manual --as-cran’ (4.3s)
+\  ✔  checking for file ‘solareclipser/DESCRIPTION’
+─  checking extension type ... Package
+─  this is package ‘solareclipser’ version ‘0.3.3’
+─  package encoding: UTF-8
+✔  checking package namespace information
+   checking package dependencies ...|/-\|/-\|/-  N  checking package dependencies (2.4s)
+   Packages suggested but not available for checking: 'gdata', 'rsnps'
+   checking if this is a source package ...\  N  checking if this is a source package
+   Found the following apparent object files/libraries:
+     lib/solar900/lib/libgpu-commands.so
+   Object files/libraries should not be included in a source package.
+✔  checking if there is a namespace
+|     checking for executable files .../-\|  W  checking for executable files (709ms)
+   Found the following executable files:
+     lib/solar900/bin/allfreq
+     lib/solar900/bin/genfreq
+     lib/solar900/bin/getmeans
+     lib/solar900/bin/homo
+     lib/solar900/bin/ibdmat
+     lib/solar900/bin/ibdmc
+     lib/solar900/bin/ibdprep
+     lib/solar900/bin/makeped
+     lib/solar900/bin/mlink
+     lib/solar900/bin/mrgibd
+     lib/solar900/bin/multipnt
+     lib/solar900/bin/relate
+     lib/solar900/bin/rlwrap
+     lib/solar900/bin/solarmain
+     lib/solar900/bin/unknown
+/     Source packages should not contain undeclared executable files.
+   See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+✔  checking for hidden files and directories
+   checking for portable file names-  ✔  checking for portable file names
+✔  checking for sufficient/correct file permissions
+\  ✔  checking serialization versions
+   checking whether package ‘solareclipser’ can be installed ...|/-\|/-\|/-  ✔  checking whether package ‘solareclipser’ can be installed (2.4s)
+   checking installed package size ...\  ✔  checking installed package size
+|  ✔  checking package directory
+/     checking for future file timestamps ...-\  ✔  checking for future file timestamps
+   checking DESCRIPTION meta-information ...|  ✔  checking DESCRIPTION meta-information
+/  N  checking top-level files
+   Non-standard files/directories found at top level:
+     ‘TODO.md’ ‘devtools_check.output’ ‘docs’ ‘lib’ ‘misc’
+     ‘replace_string.sh’
+   checking for left-over files ...-  ✔  checking for left-over files
+✔  checking index information
+   checking package subdirectories ...\  ✔  checking package subdirectories
+   checking R files for non-ASCII characters ...|  ✔  checking R files for non-ASCII characters
+   checking R files for syntax errors .../  ✔  checking R files for syntax errors
+-     checking whether the package can be loaded ...\|  ✔  checking whether the package can be loaded (406ms)
+   checking whether the package can be loaded with stated dependencies .../-  ✔  checking whether the package can be loaded with stated dependencies (348ms)
+\     checking whether the package can be unloaded cleanly ...|/  ✔  checking whether the package can be unloaded cleanly (342ms)
+   checking whether the namespace can be loaded with stated dependencies ...-\  W  checking whether the namespace can be loaded with stated dependencies (360ms)
+   Warning: S4 exports specified in 'NAMESPACE' but not defined in package ‘solareclipser’
+   checking whether the namespace can be unloaded cleanly ...|/  ✔  checking whether the namespace can be unloaded cleanly (393ms)
+   checking loading without being on the library search path ...-\  ✔  checking loading without being on the library search path (411ms)
+   checking dependencies in R code ...|/-\  ✔  checking dependencies in R code (864ms)
+   checking S3 generic/method consistency ...|/-\  ✔  checking S3 generic/method consistency (782ms)
+   checking replacement functions ...|/  ✔  checking replacement functions
+   checking foreign function calls ...-\|  ✔  checking foreign function calls (487ms)
+/     checking R code for possible problems ...-\|/-\|/-\|/-\|/-\|/-\  N  checking R code for possible problems (4.8s)
+   extractVarCompFrame: no visible global function definition for ‘pchisq’
+   extractVarCompFrame: no visible binding for global variable ‘Z’
+   Undefined global functions or variables:
+     Z pchisq
+   Consider adding
+     importFrom("stats", "pchisq")
+   to your NAMESPACE file.
+|     checking Rd files .../  W  checking Rd files
+   checkRd: (5) solareclipserPackage.Rd:0-8: Must have a \description
+  -     checking Rd metadata ...\  ✔  checking Rd metadata
+|     checking Rd line widths .../  ✔  checking Rd line widths
+-     checking Rd cross-references ...\  ✔  checking Rd cross-references
+|     checking for missing documentation entries .../-  ✔  checking for missing documentation entries (439ms)
+   checking for code/documentation mismatches ...\|/-\  ✔  checking for code/documentation mismatches (1.1s)
+   checking Rd \usage sections ...|  W  checking Rd \usage sections
+   Documented arguments not in \usage in documentation object 'annotateSNPs':
+     ‘...’
+   
+   Undocumented arguments in documentation object 'plotPed'
+     ‘affected’
+   
+   Undocumented arguments in documentation object 'readPhen'
+     ‘na.strings’
+   
+   Documented arguments not in \usage in documentation object 'solarAssocClass':
+     ‘object’ ‘y’ ‘alpha’
+   
+   Documented arguments not in \usage in documentation object 'solarBaeysAvgPolygenicClass':
+     ‘object’
+   
+   Undocumented arguments in documentation object 'solarKinship2'
+     ‘coef’
+   
+   Documented arguments not in \usage in documentation object 'solarMultipointClass':
+     ‘object’ ‘pass’ ‘LOD.thr’ ‘plot.null’
+   
+   Documented arguments not in \usage in documentation object 'solarPolygenicClass':
+     ‘object’ ‘trait’
+   
+/     Functions with \usage entries need to have the appropriate \alias
+   entries, and all their arguments documented.
+   The \usage entries must correspond to syntactically valid R code.
+   See chapter ‘Writing R documentation files’ in the ‘Writing R
+   Extensions’ manual.
+-\|/     checking Rd contents ...-  ✔  checking Rd contents (872ms)
+   checking for unstated dependencies in examples ...\  ✔  checking for unstated dependencies in examples
+|     checking contents of ‘data’ directory .../-  ✔  checking contents of ‘data’ directory
+\     checking data for non-ASCII characters ...|  ✔  checking data for non-ASCII characters
+/     checking data for ASCII and uncompressed saves ...-  ✔  checking data for ASCII and uncompressed saves
+\     checking examples ...|/-\|/-\|/-\  ✔  checking examples (2.7s)
+   checking for unstated dependencies in ‘tests’ ...|  ✔  checking for unstated dependencies in ‘tests’
+/     checking tests ...-  ─  checking tests
+\     Running ‘testthat.R’|/-\|/-\|/  -  ✔  Running ‘testthat.R’ (2s)
+\  ✔  checking for non-standard things in the check directory
+✔  checking for detritus in the temp directory
+   
+   See
+     ‘/tmp/Rtmp5f5mMi/file56a828899d4e/solareclipser.Rcheck/00check.log’
+   for details.
+   
+   
+|/ ── R CMD check results ──────────────────────────────────────────────────────────────────────────────────── solareclipser 0.3.3 ────
+Duration: 33s
+
+❯ checking for executable files ... WARNING
+  Found the following executable files:
+    lib/solar900/bin/allfreq
+    lib/solar900/bin/genfreq
+    lib/solar900/bin/getmeans
+    lib/solar900/bin/homo
+    lib/solar900/bin/ibdmat
+    lib/solar900/bin/ibdmc
+    lib/solar900/bin/ibdprep
+    lib/solar900/bin/makeped
+    lib/solar900/bin/mlink
+    lib/solar900/bin/mrgibd
+    lib/solar900/bin/multipnt
+    lib/solar900/bin/relate
+    lib/solar900/bin/rlwrap
+    lib/solar900/bin/solarmain
+    lib/solar900/bin/unknown
+  Source packages should not contain undeclared executable files.
+  See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+
+❯ checking whether the namespace can be loaded with stated dependencies ... WARNING
+  Warning: S4 exports specified in 'NAMESPACE' but not defined in package ‘solareclipser’
+
+❯ checking Rd files ... WARNING
+  checkRd: (5) solareclipserPackage.Rd:0-8: Must have a \description
+
+❯ checking Rd \usage sections ... WARNING
+  Documented arguments not in \usage in documentation object 'annotateSNPs':
+    ‘...’
+  
+  Undocumented arguments in documentation object 'plotPed'
+    ‘affected’
+  
+  Undocumented arguments in documentation object 'readPhen'
+    ‘na.strings’
+  
+  Documented arguments not in \usage in documentation object 'solarAssocClass':
+    ‘object’ ‘y’ ‘alpha’
+  
+  Documented arguments not in \usage in documentation object 'solarBaeysAvgPolygenicClass':
+    ‘object’
+  
+  Undocumented arguments in documentation object 'solarKinship2'
+    ‘coef’
+  
+  Documented arguments not in \usage in documentation object 'solarMultipointClass':
+    ‘object’ ‘pass’ ‘LOD.thr’ ‘plot.null’
+  
+  Documented arguments not in \usage in documentation object 'solarPolygenicClass':
+    ‘object’ ‘trait’
+  
+  Functions with \usage entries need to have the appropriate \alias
+  entries, and all their arguments documented.
+  The \usage entries must correspond to syntactically valid R code.
+  See chapter ‘Writing R documentation files’ in the ‘Writing R
+  Extensions’ manual.
+
+❯ checking package dependencies ... NOTE
+  Packages suggested but not available for checking: 'gdata', 'rsnps'
+
+❯ checking if this is a source package ... NOTE
+  Found the following apparent object files/libraries:
+    lib/solar900/lib/libgpu-commands.so
+  Object files/libraries should not be included in a source package.
+
+❯ checking top-level files ... NOTE
+  Non-standard files/directories found at top level:
+    ‘TODO.md’ ‘devtools_check.output’ ‘docs’ ‘lib’ ‘misc’
+    ‘replace_string.sh’
+
+❯ checking R code for possible problems ... NOTE
+  extractVarCompFrame: no visible global function definition for ‘pchisq’
+  extractVarCompFrame: no visible binding for global variable ‘Z’
+  Undefined global functions or variables:
+    Z pchisq
+  Consider adding
+    importFrom("stats", "pchisq")
+  to your NAMESPACE file.
+
+0 errors ✔ | 4 warnings ✖ | 4 notes ✖

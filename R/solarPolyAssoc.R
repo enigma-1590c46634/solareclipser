@@ -20,9 +20,10 @@ solarPolyAssoc <- function(formula, data, dir, kinship,
   ### Step 1: Arguments
   mc <- match.call()
     
-  if(!missing(snpcovdata)) {
-    stopifnot(class(snpcovdata) == "matrix")
-  }
+  # TODO: review this part
+  #if(!missing(snpcovdata)) {
+  #  stopifnot(class(snpcovdata) == "matrix")
+  #}
   
   # check `snplist` / `snpind` format
   stopifnot(any(missing(snplist), missing(snpind)))
@@ -393,7 +394,6 @@ paste0("proc poly_assoc2 {model} {\
 #' @exportClass solarPolyAssoc
 
 
-#' @rdname solarPolyAssocClass
 #' @export
 print.solarPolyAssoc <- function(x, ...)
 {

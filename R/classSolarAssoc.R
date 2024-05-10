@@ -24,7 +24,6 @@
 # Print method
 #--------------------
 
-#' @rdname solarAssocClass
 #' @export
 print.solarAssoc <- function(x, ...)
 {
@@ -61,7 +60,6 @@ print.solarAssoc <- function(x, ...)
     modelParCPUtime(x, "POSIX"), "\n", sep = "")
 }
 
-#' @rdname solarAssocClass
 #' @export
 plot.solarAssoc <- function(x, y = "manh", ...)
 {
@@ -71,6 +69,7 @@ plot.solarAssoc <- function(x, y = "manh", ...)
     stop("switch error"))
 }
 
+#' @export
 plot.solarAssoc.old <- function(x, 
   alpha = 0.05, corr = "BF", pval = "pval", ...)
 {
@@ -154,7 +153,6 @@ plot.solarAssoc.old <- function(x,
   return(p)
 }
 
-#' @rdname solarAssocClass
 #' @export
 summary.solarAssoc <- function(object, alpha = 0.05, ...)
 {

@@ -118,7 +118,6 @@ solarBaeysAvgPolygenic <- function(traits, covlist = "1", covlist.test,
 # Print method
 #--------------------
 
-#' @rdname solarBaeysAvgPolygenicClass
 #' @export
 print.solarBaeysAvgPolygenic <- function(x, ...)
 {
@@ -130,7 +129,6 @@ print.solarBaeysAvgPolygenic <- function(x, ...)
 
 }
 
-#' @rdname solarBaeysAvgPolygenicClass
 #' @export
 summary.solarBaeysAvgPolygenic <- function(object, ...)
 {

@@ -1,6 +1,6 @@
-#' solarius: an R package wrapper to SOLAR.
+#' solareclipser: an R package wrapper to SOLAR.
 #'
-#' @name solariusPackage
+#' @name solareclipserPackage
 #' @docType package
 #' @import methods
 #' @import plyr

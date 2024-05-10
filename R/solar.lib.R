@@ -421,7 +421,8 @@ kf2kmat <- function(kf, coef = c("phi2", "delta7"))
 
 kmat2kf <- function(kmat)
 {
-  stopifnot(class(kmat) == "matrix")
+  # TODO: review this
+  #stopifnot(class(kmat) == "matrix")
 
   stopifnot(nrow(kmat) == ncol(kmat))
   N <- nrow(kmat)

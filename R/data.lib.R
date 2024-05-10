@@ -16,7 +16,7 @@
 #'    Path returned by \code{system.file}.
 #'
 #' @examples
-#' mibddir <- package.file("extdata", "solarOutput", "solarMibds", package = "solarius") 
+#' mibddir <- package.file("extdata", "solarOutput", "solarMibds", package = "solareclipser") 
 #' mibddir
 #'
 #' list.files(mibddir)
@@ -38,7 +38,7 @@ package.file <- function(...)
 #' The function loads the complete data of 12,000 individuals,
 #' which is stored in .phen and .ped files.
 #' These two files were generated within R package \code{multic}
-#' and re-distributed in R package \code{solarius} 
+#' and re-distributed in R package \code{solareclipser} 
 #' (\code{extdata/solarOutput} directory).
 #'
 #' Function \code{\link{readPhen}} is used to read .phen and .ped files.
@@ -52,7 +52,7 @@ package.file <- function(...)
 #' @export
 loadMulticPhen <- function()
 {
-  dat.dir <- package.file("extdata", "solarOutput", package = "solarius")
+  dat.dir <- package.file("extdata", "solarOutput", package = "solareclipser")
   
   dat <- readPhen(phen.file = file.path(dat.dir, "simulated.phen"), sep.phen = ",", 
     ped.file = file.path(dat.dir, "simulated.ped"), sep.ped = ",")

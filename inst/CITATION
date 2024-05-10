@@ -1,8 +1,8 @@
-citHeader("To cite the 'solarius' package in publications use:")
+citHeader("To cite the 'solareclipser' package in publications use:")
 
 citEntry(
   entry="Article",
-  title = "solarius: an R interface to SOLAR for variance component analysis in pedigrees",
+  title = "solareclipser: an R interface to SOLAR for variance component analysis in pedigrees",
   author = personList(
     as.person("Andrey Ziyatdinov"),
     as.person("Helena Brunel"),
@@ -16,6 +16,6 @@ citEntry(
   pages = "btw080",
   url = "http://bioinformatics.oxfordjournals.org/content/32/12/1901",
   textVersion =  paste("Ziyatdinov et al., ",
-    "solarius: an R interface to SOLAR for variance component analysis in pedigrees, ",
+    "solareclipser: an R interface to SOLAR for variance component analysis in pedigrees, ",
     "Bioinformatics (2016)")  
 )

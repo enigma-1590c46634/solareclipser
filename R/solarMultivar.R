@@ -261,7 +261,6 @@ solarMultivar <- function(formula, data, traits, covlist = "1",
 #'
 #' @exportClass solarMultivar
 
-#' @rdname solarMultivarClass
 #' @export
 print.solarMultivar <- function(x, ...)
 {

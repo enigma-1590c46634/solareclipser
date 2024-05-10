@@ -5,8 +5,9 @@ inst/staticdocs/
 
 lib/solar900/
 
-solarius\.Rcheck
-solarius_*\.gz
 .Rproj.user
 .RData
 .Rhistory
+
+# temp shell scripts
+*.sh
