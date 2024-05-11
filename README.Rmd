@@ -72,7 +72,7 @@ assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
 
 ## Tutorial
 
-See [tutorial](inst/doc/tutorial.html) for more infomation.
+See [tutorial](inst/doc/tutorial.md) for more infomation.
 
 ## SOLAR references
 
