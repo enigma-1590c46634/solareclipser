@@ -34,7 +34,7 @@ Imports:
     kinship2,
     doParallel,
     qqman,
-    gridExtra
+    gridExtra,
 Suggests:
     tools,
     scales,
@@ -42,9 +42,11 @@ Suggests:
     gdata,
     iterators,
     parallel,
-    rsnps,
     grid,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    rsnps
 Collate:
     'package.R'
     'datasets.R'
@@ -68,3 +70,4 @@ Collate:
     'solarBayesAvg.R'
     'solarPar.R'
     'modelPar.R'
+VignetteBuilder: knitr

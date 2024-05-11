@@ -23,9 +23,13 @@ The `solareclipser` package also enables parallel computation of
 [linkage](http://ugcd.github.io/solareclipser/vignettes/tutorial.html#parallel-computation-1)
 models to make genome-wide scans more efficient.
 
+## Prerequisites 
+
+The package requires a version of [SOLAR-Eclipse](https://www.nitrc.org/projects/se_linux).
+
 ## Installation
 
-You can install the development version of solareclipser like so:
+You can install the development version of `solareclipser` like so:
 
 ``` r
 library(devtools)
@@ -62,6 +66,10 @@ assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
   snpcovdata = genocovdat30, snpmap = mapdat30)
 #> [1] "snp.geno-list"
 ```
+
+## Tutorial
+
+See [tutorial](inst/doc/tutorial.html) for more information.
 
 ## SOLAR references
 

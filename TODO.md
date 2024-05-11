@@ -5,6 +5,7 @@
 - [ ] set project path for the bundled solar
 - [ ] write a test for solar.lib.R. It fails to load sym. link in project
       root.
+- [ ] bundle solar versions.
 
 ## BUGS
 
@@ -57,6 +58,61 @@ The following is what doesn't work following the [tutorial](https://ugcd.github.
 - 🟡 [6](https://ugcd.github.io/solarius/vignettes/tutorial.html#r-session-info) has
     a dependency listing that differs from other documentation.
 
+- 🔴 [minimal.Rmd](docs/bak/minimal.Rmd) exposes a bug that package `rsnps`
+  required by [assoc.lib.R](R/assoc.lib.R) is broken when using `check()`:
+
+    ```txt
+    E  creating vignettes (9s)
+      --- re-building ‘minimal.Rmd’ using rmarkdown
+      Failed with error:  'there is no package called 'rsnps''
+     
+      Quitting from lines  at lines 200-203 [annot_F11_gait1] (minimal.Rmd)
+      Error: processing vignette 'minimal.Rmd' failed with diagnostics:
+      requireNamespace("rsnps") is not TRUE
+      --- failed re-building ‘minimal.Rmd’
+     
+      --- re-building ‘tutorial.Rmd’ using rmarkdown
+     
+      Quitting from lines  at lines 633-634 [ver_solarius] (tutorial.Rmd)
+      Error: processing vignette 'tutorial.Rmd' failed with diagnostics:
+      there is no package called 'solarius'
+      --- failed re-building ‘tutorial.Rmd’
+     
+      SUMMARY: processing the following files failed:
+        ‘minimal.Rmd’ ‘tutorial.Rmd’
+     
+      Error: Vignette re-building failed.
+      Execution halted
+     ```
+
+     - See issue: <https://github.com/ropensci/rsnps/issues/174>.
+     - Try previous version:
+        - <https://cran-archive.r-project.org/web/checks/2023/2023-07-09_check_results_rsnps.html>
+        - <https://cran.r-project.org/src/contrib/Archive/rsnps/>
+
+- 🟡 [tutorial.Rmd](vignettes/tutorial.Rmd) exposes a bug that `solar` no
+  longer has info that `solareclipser` needs to create the example using
+  `loadExamplesPhen()` in [data.lib.R](R/data.lib.R). See older `solar` versions
+  for data.
+
+  ```txt
+  E  creating vignettes (8.6s)
+   --- re-building ‘tutorial.Rmd’ using rmarkdown
+   no files matched glob pattern "/home/wb/solar900/doc/Example/*"
+
+   Quitting from lines  at lines 769-771 [ex] (tutorial.Rmd)
+   Error: processing vignette 'tutorial.Rmd' failed with diagnostics:
+   cannot open the connection
+   --- failed re-building ‘tutorial.Rmd’
+
+   SUMMARY: processing the following file failed:
+     ‘tutorial.Rmd’
+
+   Error: Vignette re-building failed.
+   Execution halted
+   ```
+
+   - The example is commented out for now.
 
 ## Other notes
 

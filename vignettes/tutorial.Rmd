@@ -1,32 +1,32 @@
 ---
-title: "Tutorial on `solarius` R package"
+title: "Tutorial on `solareclipser` R package"
 author: "Andrey Ziyatdinov, Helena Brunel"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    theme: united
-    toc: true
-    toc_depth: 3
-    number_sections: true
-  pdf_document:
-    toc: true
-    toc_depth: 3
-    number_sections: true
-bibliography: ref.bib
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial on `solareclipser` R package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r chunk_opt, echo = FALSE}
-#opts_chunk$set(eval = FALSE)
-#opts_chunk$set(fig.path = "figures-tutorial/")
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(solareclipser)
 ```
 
 # Introduction
 
-This vignette is a tutorial on the R package `solarius`.
+This vignette is a tutorial on the R package `solareclipser`.
 The document contains a brief description of the main statistical models (polygenic, association and linkage) 
-implemented in `SOLAR` and accessible via `solarius`, 
-installation instructions for both `SOLAR` and `solarius`,
-reproducible examples on synthetic data sets available within the `solarius` package.
+implemented in `SOLAR` and accessible via `solareclipser`, 
+installation instructions for both `SOLAR` and `solareclipser`,
+reproducible examples on synthetic data sets available within the `solareclipser` package.
 The examples are intended to cover all the necessary steps 
 in the quantitative genetic analysis with `SOLAR`:
 data loading, data exploration, running statistical models 
@@ -69,13 +69,13 @@ The linkage analysis allows for multiple quantitative traits and/or discrete tra
 which might involve multiple loci (oligogenic analysis), dominance effects, household effects, and interactions.
 
 There are other tools similar to `SOLAR`, such as `Mendel`, `MMM`, `GEMMA` and `FAST-LMM`,
-but the R package `solarius` presented here has been especially developed to work with `SOLAR`.
+but the R package `solareclipser` presented here has been especially developed to work with `SOLAR`.
 
-`solarius` provides an interface from the program `SOLAR` to 
+`solareclipser` provides an interface from the program `SOLAR` to 
 the environment for statistical computing `R`.
-On one side, main `SOLAR` procedures can be called in `R` by one or a few commands from the `solarius` package,
+On one side, main `SOLAR` procedures can be called in `R` by one or a few commands from the `solareclipser` package,
 that makes the analysis more user-friendly with the same power of computations implemented in `SOLAR`.
-On the other side, the `solarius` user benefits from the infrastructure available 
+On the other side, the `solareclipser` user benefits from the infrastructure available 
 with the R environment and its packages, 
 such as interactive data manipulation, data visualization and parallel computation.
 
@@ -401,14 +401,14 @@ can be found in the `SOLAR` manual, for example, [@SOLARDOC, Apendix 1, [mga](ht
 
 # Software
 
-The idea of the proposed software (the R package `solarius`) 
+The idea of the proposed software (the R package `solareclipser`) 
 is to perform the calculus in `SOLAR` at the back-end
 and to offer the user interface in R at the front-end. 
 The table given below shows a basic description of the software
 via implementation of the main three models: polygenic, association and linkage.
 
 
-|Model | `SOLAR` command | `solarius` function | `solarius` S3 classes of returned object| Parallel computation | 
+|Model | `SOLAR` command | `solareclipser` function | `solareclipser` S3 classes of returned object| Parallel computation | 
 |---|---|---|---|---|
 | Polygenic   | `polygenic` | `solarPolygenic` | `solarPolygenic` | None | 
 | Association | `mga` | `solarAssoc`     | `solarAssoc`, `solarPolygenic` | Automatic or custom (by SNP file) | 
@@ -418,54 +418,54 @@ One can see how the software benefits from both `SOLAR` and R sides.
 On the side of `SOLAR`, the `SOLAR` commands `polygenic`, `mga` and `multipoint`
 do all the hard job on estimating the variance component models
 with control via a set of parameters and settings.
-On the side of `R`, the `solarius` functions `solarPolygenic`, `solarAssoc` and `solarMultipoint`
+On the side of `R`, the `solareclipser` functions `solarPolygenic`, `solarAssoc` and `solarMultipoint`
 prepare the input data for the analysis, pass the arguments to the commands 
 and set up other necessary settings, and finally read the output `SOLAR` files 
 and store the results into R objects of S3 classes in R.
 
-The main advantage of running the `SOLAR` models in `solarius` instead of `SOLAR`
+The main advantage of running the `SOLAR` models in `solareclipser` instead of `SOLAR`
 is that the analysis is conduced by only one function call,
 while the same analysis in `SOLAR` could require typing more commands 
 with appropriate options and settings (to be learned from the `SOLAR` manual).
-The `solarius` functions just automate the analysis flow and 
+The `solareclipser` functions just automate the analysis flow and 
 keep configuration options via the R function arguments, if such configuration is required. 
-Another advantage of using the R package `solarius` 
+Another advantage of using the R package `solareclipser` 
 is that the results are stored in objects of especially designed S3 classes
 with associated methods like print, summary, plot and others.
 
 The last column of the table given above contains the information
 related to parallel computation available for the models.
-The implementation of parallel calculations is straightforward in `solarius` package, 
+The implementation of parallel calculations is straightforward in `solareclipser` package, 
 since the association and linkage analyses are _embarrassingly parallel_ problems
 (easily divisible into different identical independent task)
 and the R environment offers a number of packages with parallel interfaces.
 
-More information about the `solarius` functions is available in the software manual of the package,
+More information about the `solareclipser` functions is available in the software manual of the package,
 and the practical guide of using the functions is presented in the next section dedicated to examples.
-Meantime, some points should to be stressed to describe some other features and drawbacks of the `solarius` package.
+Meantime, some points should to be stressed to describe some other features and drawbacks of the `solareclipser` package.
 
-* The `solarius` functions, by default, do not create any directories visible to the user,
+* The `solareclipser` functions, by default, do not create any directories visible to the user,
   though the analysis flow in `SOLAR` is heavily based on storing the data in directories and files.
   However, the input phenotype and genotype data might be stored in CSV data format and passed to the functions.
   The user can specify a special directory (`dir` argument for the `solarPolygenic`, `solarAssoc` and `solarMultipoint` functions), 
   where the `SOLAR` output will be saved in addition to the output R object.
 * The `tcl` scripts used by `SOLAR` for automation are not visible to the user.
   The routine of executing either `SOLAR` separate commands or a block of commands in a `tcl` script
-  is internally organized in the functions of `solarius`.
-* The work on parsing the output of `SOLAR` analysis is implemented in the functions in `solarius`,
+  is internally organized in the functions of `solareclipser`.
+* The work on parsing the output of `SOLAR` analysis is implemented in the functions in `solareclipser`,
   and the user does not need to manually look for the analysis results.
 * The `SOLAR` commands used to compute the analysis and some `SOLAR` output files
   are saved in the returned objects.
   This feature might be necessary for those users who are familiar with `SOLAR`.
   It is also helps to go back to `SOLAR` and repeat or extend the analysis in the `SOLAR` environment,
   if it is necessary.
-* The package `solarius` offers only three analyses 
+* The package `solareclipser` offers only three analyses 
   via the most powerful `SOLAR` commands `polygenic`, `mga` and `multipoint`.
   If a more specific genetic analysis is required, the user needs to go back to `SOLAR`.
 
 ## Installation
 
-The installation process has three steps: install `SOLAR`, register `SOLAR` and install `solarius`.
+The installation process has three steps: install `SOLAR`, register `SOLAR` and install `solareclipser`.
 
 ### `SOLAR` installation
 
@@ -516,22 +516,22 @@ As stated in the official web page of SOLAR [http://solar.txbiomedgenetics.org/s
 >Because SOLAR requires a Unix OS or equivalent, we have prepared a VMware Virtual Machine containing SOLAR plus the Xubuntu edition of linux which runs on Windows XP or later using the free VMware Player. Beware this requires a very large multi 1.4 Gb download, and will require more than 10 gigabytes free disc space during installation. 
 
 
-This is a clear limitation of `solarius` package that comes from the dependency on SOLAR.
-Starting from version 3.*, `solarius` is not supported for Windows.
+This is a clear limitation of `solareclipser` package that comes from the dependency on SOLAR.
+Starting from version 3.*, `solareclipser` is not supported for Windows.
 [DESCRIPTION](https://github.com/ugcd/solarius/blob/master/DESCRIPTION) file
 has a line `OS_type: unix`.
 
-### `solarius` installation
+### `solareclipser` installation
 
-`solarius` package is available in the CRAN repository for R packages 
-[http://cran.r-project.org/web/packages/solarius/](http://cran.r-project.org/web/packages/solarius/),
+`solareclipser` package is available in the CRAN repository for R packages 
+[http://cran.r-project.org/web/packages/solareclipser/](http://cran.r-project.org/web/packages/solareclipser/),
 so it can be install by calling the usual R function `install.packages`.
 
 ```
-install.packages(solarius)
+install.packages(solareclipser)
 ```
 
-The code repository of `solarius` package is hosted in the public GitHub repository 
+The code repository of `solareclipser` package is hosted in the public GitHub repository 
 of the UGCD group [https://github.com/ugcd/solarius](https://github.com/ugcd/solarius).
 The R package `devtools` allows to install 
 the development version of the package hosted at GitHub.
@@ -539,13 +539,13 @@ The installation commands are the following.
 
 ```
 library(devtools)
-install_github("ugcd/solarius")
+install_github("ugcd/solareclipser")
 ```
 
-### Installation problems with solarius
+### Installation problems with solareclipser
 
-`solarius` has several R packages as dependencies
-(that can be seen in [DESCRIPTION](https://github.com/ugcd/solarius/blob/master/DESCRIPTION) file).
+`solareclipser` has several R packages as dependencies
+(that can be seen in [DESCRIPTION](https://github.com/ugcd/solareclipser/blob/master/DESCRIPTION) file).
 Installation of these packages should be straightforward using the standard R function `install.packages`.
 
 In the case of problems in the installation process, web pages of the packages are the main source of information.
@@ -562,9 +562,9 @@ Imported packages:
 If the user experiences problems installing `data.table` package,
 we recommend to upgrade the R environment to the latest stable version.
 
-## `solarius` R package structure
+## `solareclipser` R package structure
 
-`solarius` is organized as a standard R package,
+`solareclipser` is organized as a standard R package,
 and its structure can be seen in the code repository web site [https://github.com/ugcd/solarius](https://github.com/ugcd/solarius).
 
 * [R](https://github.com/ugcd/solarius/tree/master/R) directory contains `*.R` files with functions, classes and methods.
@@ -609,28 +609,28 @@ The vignetts are created by `rmarkdown` R package and published as html pages on
   The vignette reports results on the real family-based data set GAIT1.
   The traits under study are the FXI levels in blood, the BMI and the Thrombosis affection.
   Although the original calculus were conducted with `SOLAR`,
-  the code presented in the vignette is based on `solarius`.
+  the code presented in the vignette is based on `solareclipser`.
   The produced results are the same as those reported in the published articles.
   
 
-## Load `solarius`
+## Load `solareclipser`
 
-To start using `solarius` package, the user needs to load the package with `library` function.
+To start using `solareclipser` package, the user needs to load the package with `library` function.
 
-```{r fake_inc_solarius, echo = FALSE, message = FALSE}
-#library(solarius)
-library(devtools)
-load_all("../")
+```{r fake_inc_solareclipser, echo = FALSE, message = FALSE}
+#library(solareclipser)
+#library(devtools)
+#load_all("../")
 ```
 
-```{r inc_solarius, eval = FALSE}
-library(solarius)
+```{r inc_solareclipser, eval = FALSE}
+library(solareclipser)
 ```
 
-The version of `solarius` loaded here is:
+The version of `solareclipser` loaded here is:
 
-```{r ver_solarius}
-packageVersion("solarius")
+```{r ver_solareclipser}
+packageVersion("solareclipser")
 ```
 
 Other R packages will be needed for the tutorial.
@@ -647,7 +647,7 @@ of the package work.
 
 ```{r minimal, cache = TRUE}
 # load library
-library(solarius)
+library(solareclipser)
 
 # load data set
 data(dat30)
@@ -661,7 +661,7 @@ mod2 <- solarPolygenic(trait1 + trait2 ~ 1, dat30,
 
 # specify directory with IBD matrices and run linkage model
 mibddir <- system.file('extdata', 'solarOutput',
-  'solarMibdsCsv', package = 'solarius') 
+  'solarMibdsCsv', package = 'solareclipser') 
 link <- solarMultipoint(trait1 ~ 1, dat30,
   mibddir = mibddir, chr = 5)
 
@@ -670,16 +670,16 @@ assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
   snpcovdata = genocovdat30, snpmap = mapdat30)
 ```  
 
-The user can think of this block of code as a quick start in using `solarius`.
+The user can think of this block of code as a quick start in using `solareclipser`.
 The material given further will provide 
-more details and all necesseary information on the usage of `solarius`.
+more details and all necesseary information on the usage of `solareclipser`.
 
 ## Data sets
 
 The genome-wide QTL analysis typically involves large-scale data sets.
-Data sets distributed within `solarius` package contain relatively small simulated data,
+Data sets distributed within `solareclipser` package contain relatively small simulated data,
 which are used for reproducible demonstrations of how functions of the package work.
-There are three data sets available in `solarius`:
+There are three data sets available in `solareclipser`:
 
 * An adapted version of the simulated data from the R package `multic` [@Andrade2006] (polygenic and linkage models);
     * A smaller subset of these data is given in `dat30` data set (polygenic, linkage and association models);
@@ -688,7 +688,7 @@ There are three data sets available in `solarius`:
 
 The simulated data set (in `SOLAR` format) from `multic` R package 
 is placed in [inst/extdata/solarOutput](https://github.com/ugcd/solarius/tree/master/inst/extdata/solarOutput)
-directory of `solarius` package.
+directory of `solareclipser` package.
 1200 individuals in 200 families are included in the study.
 The simulated phenotypes include two traits `trait1` and `trait2` and two covariates `age` and `sex`.
 The two traits possess a high genetic correlation.
@@ -753,7 +753,7 @@ str(genodata)
 str(genocovdata)
 ```
 
-`loadMulticPhen` function in `solarius` package 
+`loadMulticPhen` function in `solareclipser` package 
 loads the complete version of the data from the R package `multic`
 (1200 individuals).
 
@@ -766,8 +766,8 @@ str(mdat)
 returns the GAW10 data sets available in `SOLAR`.
 
 ```{r ex, cache = TRUE}
-gawdat <- loadExamplesPhen()
-str(gawdat)
+#gawdat <- loadExamplesPhen()
+#str(gawdat)
 ```
 
 Both `loadMulticPhen` and `loadExamplesPhen` functions
@@ -776,7 +776,7 @@ which reads the phenotype data from text files of a table format.
 The data from the R package `multic` can be also loaded by means of `readPhen` function.
 
 ```{r, eval = FALSE}
-dat.dir <- system.file("extdata", "solarOutput", package = "solarius")
+dat.dir <- system.file("extdata", "solarOutput", package = "solareclipser")
 
 mdat <- readPhen(phen.file = file.path(dat.dir, "simulated.phen"), sep.phen = ",", 
   ped.file = file.path(dat.dir, "simulated.ped"), sep.ped = ",")
@@ -854,7 +854,7 @@ dat30 <- mutate(dat30,
   exp_trait1 = exp(trait1))
 ```
 
-The list of available transforms in `solarius` 
+The list of available transforms in `solareclipser` 
 is returned by `availableTransforms` function.
 
 ```{r}
@@ -993,7 +993,7 @@ The genotype data are passed to `solarAssoc` function in the form of
 SNP genotypes (`snpdata` argument) or covariates
 (`snpcovdata` or `genocov.files` arguments).
 The later case assumes that the user 
-has converted the genotypes to covariates by some method (outside `solarius` package)
+has converted the genotypes to covariates by some method (outside `solareclipser` package)
 before computing the association model.
 
 The function returns an object of class `solarAssoc`.
@@ -1065,7 +1065,7 @@ Both arguments `genocov.files` and `snplists.files` are required,
 and `snpmap.files` argument is optional.
  
 ```{r genocov, cache = TRUE}
-dir <- package.file("extdata", "solarAssoc", package = "solarius")
+dir <- package.file("extdata", "solarAssoc", package = "solareclipser")
 genocov.files <- file.path(dir, "snp.genocov")
 snplists.files <- file.path(dir, c("snp.geno-list1", "snp.geno-list2"))
 
@@ -1080,7 +1080,7 @@ Many values can be passed to `genocov.files` parameter,
 but this case is thought for parallel calculations.
  
 ```{r genocov2, cache = TRUE}
-dir <- package.file("extdata", "solarAssoc", package = "solarius")
+dir <- package.file("extdata", "solarAssoc", package = "solareclipser")
 genocov.files <- file.path(dir, c("snp.genocov1", "snp.genocov2"))
 snplists.files <- file.path(dir, c("snp.geno-list1", "snp.geno-list2"))
 
@@ -1108,7 +1108,7 @@ plot(A5, "qq")
 
 ### Parallel computation 
 
-Parallelization of the association analysis is an easy task with `solarius`.
+Parallelization of the association analysis is an easy task with `solareclipser`.
 The user only needs to specify how many cores are to be used for the computation.
 
 ```{r A6, cache = TRUE}
@@ -1159,7 +1159,7 @@ The basic model requires only the path to a directory with IBD matrices (`mibddi
 By default, all `SOLAR` specific files, which represent IBD matrices, will be used in the analysis.
 
 ```{r data_multic_link}
-mibddir <- package.file("extdata", "solarOutput", "solarMibdsCsv", package = "solarius")  
+mibddir <- package.file("extdata", "solarOutput", "solarMibdsCsv", package = "solareclipser")  
 list.files(mibddir)
 ```
 
@@ -1239,7 +1239,7 @@ L5$multipoint$tprofile$cputime.sec
 
 
 A list of references given on the official web page of `SOLAR` 
-[http://solar.txbiomedgenetics.org/](http://solar.txbiomedgenetics.org/):
+[solar-eclipse-genetics.org](https://solar-eclipse-genetics.org):
 
 * The main reference for SOLAR, including theoretical explanations of the variance component linkage method and the approximate multipoint IBD calculations in pedigrees, is [@Almasy1998];
 * Bivariate Quantitative trait linkage is described in the following papers: [@Almasy1997], [@Williams1999];

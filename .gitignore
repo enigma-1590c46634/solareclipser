@@ -11,3 +11,4 @@ lib/solar900/
 
 # temp shell scripts
 *.sh
+inst/doc

@@ -16,7 +16,7 @@
 #'    Path returned by \code{system.file}.
 #'
 #' @examples
-#' mibddir <- package.file("extdata", "solarOutput", "solarMibds", package = "solareclipser") 
+#' mibddir <- package.file("extdata", "solarOutput", "solarMibds", package = "solareclipser")
 #' mibddir
 #'
 #' list.files(mibddir)

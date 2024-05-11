@@ -1,17 +1,12 @@
 ---
-title: "Minimal examples for `solarius` R package"
+title: "Minimal examples for `solareclipser` R package"
 author: "Andrey Ziyatdinov"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    theme: united
-    toc: true
-    toc_depth: 3
-    number_sections: true
-  pdf_document:
-    toc: true
-    toc_depth: 3
-    number_sections: true
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Minimal examples for `solareclipser` R package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r chunk_opt, echo = FALSE}
@@ -19,17 +14,28 @@ output:
 #opts_chunk$set(fig.path = "figures-minimal/")
 ```
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(solareclipser)
+```
+
 # `dat30` data set 
 
 ```{r, eval = FALSE}
-help(dat30, package = "solarius")
+help(dat30, package = "solareclipser")
 ```
 
 # All code in one block
 
 ```{r min_example, cache = TRUE}
 # load library
-library(solarius)
+library(solareclipser)
 
 # load data set
 data(dat30)
@@ -43,7 +49,7 @@ mod2 <- solarPolygenic(trait1 + trait2 ~ 1, dat30,
 
 # specify directory with IBD matrices and run linkage model
 mibddir <- system.file('extdata', 'solarOutput',
-  'solarMibdsCsv', package = 'solarius') 
+  'solarMibdsCsv', package = 'solareclipser') 
 link <- solarMultipoint(trait1 ~ 1, dat30,
   mibddir = mibddir, chr = 5)
 
@@ -179,8 +185,8 @@ as `plot` method (applied to `assoc` object) with the second argument equal to `
 The procedure of SNPs annotation is possible via `rsnps` R package (loaded by `annotate` function invisibly to the user).
 
 ```{r annot_assoc}
-tab <- annotate(assoc)
-tab
+#tab <- annotate(assoc)
+#tab
 ```
 
 Annotation of the synthetic SNPs generated for `dat30` data sets returns an empty data frame,

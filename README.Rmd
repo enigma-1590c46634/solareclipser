@@ -70,6 +70,10 @@ assoc <- solarAssoc(trait1 ~ 1, dat30, cores = 2,
   snpcovdata = genocovdat30, snpmap = mapdat30)
 ```
 
+## Tutorial
+
+See [tutorial](inst/doc/tutorial.html) for more infomation.
+
 ## SOLAR references
 
 * The new [SOLAR web page](https://solar-eclipse-genetics.org/) (SOLAR-Eclipse)
