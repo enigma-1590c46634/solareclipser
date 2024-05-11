@@ -151,6 +151,8 @@ R/transforms.lib.R:  stopifnot(class(x) %in% c("integer", "numeric"))
 - https://adv-r.hadley.nz/oo-tradeoffs.html
 - https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Package-structure
 - https://debruine.github.io/tutorials/your-first-r-package-with-unit-tests.html#unit-tests
-
+- https://rstudio.github.io/cheatsheets/html/rmarkdown.html#render
+- https://rstudio.github.io/cheatsheets/html/package-development.html#workflow
+- https://r-pkgs.org/man.html
 
 
