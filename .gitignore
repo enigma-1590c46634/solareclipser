@@ -1,8 +1,3 @@
-man/
-solar/
-inst/web/
-inst/staticdocs/
-
 lib/solar900/
 
 .Rproj.user
@@ -11,4 +6,3 @@ lib/solar900/
 
 # temp shell scripts
 *.sh
-inst/doc
